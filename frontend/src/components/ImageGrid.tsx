@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useState, memo } from 'react';
 import { Star } from 'lucide-react';
 import type { DogImage, Favourite } from '../types';
 import { useAddFavourite, useRemoveFavourite } from '../hooks/useApi';
+import { useLazyLoading } from '../hooks/useLazyLoading';
 import { classNames } from '../utils/classNames';
 
 interface ImageCardProps {
@@ -9,10 +10,11 @@ interface ImageCardProps {
   isFavourited: boolean;
 }
 
-function ImageCard({ image, isFavourited }: ImageCardProps) {
+const ImageCard = memo(({ image, isFavourited }: ImageCardProps) => {
   const [loading, setLoading] = useState(true);
   const addFavourite = useAddFavourite();
   const removeFavourite = useRemoveFavourite();
+  const { targetRef, isIntersecting } = useLazyLoading();
 
   const handleFavouriteClick = () => {
     if (isFavourited) {
@@ -23,17 +25,23 @@ function ImageCard({ image, isFavourited }: ImageCardProps) {
   };
 
   return (
-    <div className="group relative overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm">
-      <img
-        src={image.url}
-        alt={`${image.breed} dog`}
-        loading="lazy"
-        className={classNames(
-          "w-full h-52 object-cover transition duration-500",
-          loading ? "blur-sm scale-[1.02]" : "blur-0"
-        )}
-        onLoad={() => setLoading(false)}
-      />
+    <div ref={targetRef} className="group relative overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm">
+      {isIntersecting ? (
+        <img
+          src={image.url}
+          alt={`${image.breed} dog`}
+          loading="lazy"
+          className={classNames(
+            "w-full h-52 object-cover transition duration-500",
+            loading ? "blur-sm scale-[1.02]" : "blur-0"
+          )}
+          onLoad={() => setLoading(false)}
+        />
+      ) : (
+        <div className="w-full h-52 bg-gray-100 animate-pulse flex items-center justify-center">
+          <div className="text-gray-400 text-sm">Loading...</div>
+        </div>
+      )}
       <div className="absolute inset-x-0 bottom-0 hidden group-hover:flex justify-between items-center p-2 bg-gradient-to-t from-black/60 to-transparent">
         <button
           onClick={handleFavouriteClick}
@@ -56,7 +64,7 @@ function ImageCard({ image, isFavourited }: ImageCardProps) {
       </div>
     </div>
   );
-}
+});
 
 interface ImageGridProps {
   images: DogImage[];

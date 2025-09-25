@@ -1,33 +1,41 @@
 import { Star } from 'lucide-react';
 import type { Favourite } from '../types';
 import { useRemoveFavourite } from '../hooks/useApi';
-import { useState } from 'react';
+import { useState, memo } from 'react';
+import { useLazyLoading } from '../hooks/useLazyLoading';
 import { classNames } from '../utils/classNames';
 
 interface FavouriteCardProps {
   favourite: Favourite;
 }
 
-function FavouriteCard({ favourite }: FavouriteCardProps) {
+const FavouriteCard = memo(({ favourite }: FavouriteCardProps) => {
   const [loading, setLoading] = useState(true);
   const removeFavourite = useRemoveFavourite();
+  const { targetRef, isIntersecting } = useLazyLoading();
 
   const handleRemoveFavourite = () => {
     removeFavourite.mutate(favourite.image_url);
   };
 
   return (
-    <div className="group relative overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm">
-      <img
-        src={favourite.image_url}
-        alt={`${favourite.breed} dog`}
-        loading="lazy"
-        className={classNames(
-          "w-full h-52 object-cover transition duration-500",
-          loading ? "blur-sm scale-[1.02]" : "blur-0"
-        )}
-        onLoad={() => setLoading(false)}
-      />
+    <div ref={targetRef} className="group relative overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm">
+      {isIntersecting ? (
+        <img
+          src={favourite.image_url}
+          alt={`${favourite.breed} dog`}
+          loading="lazy"
+          className={classNames(
+            "w-full h-52 object-cover transition duration-500",
+            loading ? "blur-sm scale-[1.02]" : "blur-0"
+          )}
+          onLoad={() => setLoading(false)}
+        />
+      ) : (
+        <div className="w-full h-52 bg-gray-100 animate-pulse flex items-center justify-center">
+          <div className="text-gray-400 text-sm">Loading...</div>
+        </div>
+      )}
       <div className="absolute inset-x-0 bottom-0 hidden group-hover:flex justify-between items-center p-2 bg-gradient-to-t from-black/60 to-transparent">
         <button
           onClick={handleRemoveFavourite}
@@ -51,7 +59,7 @@ function FavouriteCard({ favourite }: FavouriteCardProps) {
       </div>
     </div>
   );
-}
+});
 
 interface FavouritesViewProps {
   favourites: Favourite[];

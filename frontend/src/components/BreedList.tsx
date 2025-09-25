@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { useAppStore } from '../store';
 import { classNames } from '../utils/classNames';
 
@@ -5,7 +6,7 @@ interface BreedListProps {
   breeds: string[];
 }
 
-function BreedPill({ name, active, onClick }: { name: string; active: boolean; onClick: () => void }) {
+const BreedPill = memo(({ name, active, onClick }: { name: string; active: boolean; onClick: () => void }) => {
   const [breed, sub] = name.split('/');
   return (
     <button
@@ -26,7 +27,7 @@ function BreedPill({ name, active, onClick }: { name: string; active: boolean; o
       </div>
     </button>
   );
-}
+});
 
 export function BreedList({ breeds }: BreedListProps) {
   const { selectedBreed, setSelectedBreed, searchQuery } = useAppStore();

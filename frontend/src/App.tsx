@@ -7,6 +7,8 @@ import { ImageGrid } from './components/ImageGrid';
 import { FavouritesView } from './components/FavouritesView';
 import { LoadingSpinner } from './components/LoadingSpinner';
 import { ErrorBanner } from './components/ErrorBanner';
+import { ErrorBoundary } from './components/ErrorBoundary';
+import { BreedListSkeleton, ImageGridSkeleton } from './components/LoadingSkeletons';
 import { classNames } from './utils/classNames';
 
 function Header() {
@@ -71,14 +73,13 @@ function App() {
             </label>
 
             <div className="mt-4 h-[420px] overflow-auto pr-1">
-              {breedsLoading ? (
-                <div className="flex items-center justify-center py-8">
-                  <LoadingSpinner />
-                  <span className="ml-2 text-sm text-gray-600">Loading breeds...</span>
-                </div>
-              ) : (
-                <BreedList breeds={filteredBreeds} />
-              )}
+              <ErrorBoundary>
+                {breedsLoading ? (
+                  <BreedListSkeleton />
+                ) : (
+                  <BreedList breeds={filteredBreeds} />
+                )}
+              </ErrorBoundary>
             </div>
           </div>
 
@@ -135,17 +136,17 @@ function App() {
           </div>
 
           {currentTab === 'browse' ? (
-            <div>
-              {imagesLoading && selectedBreed && (
-                <div className="flex items-center gap-2 mb-4">
-                  <LoadingSpinner />
-                  <span className="text-sm text-gray-700">Loading images...</span>
-                </div>
+            <ErrorBoundary>
+              {imagesLoading && selectedBreed ? (
+                <ImageGridSkeleton />
+              ) : (
+                <ImageGrid images={images || []} favourites={favourites || []} />
               )}
-              <ImageGrid images={images || []} favourites={favourites || []} />
-            </div>
+            </ErrorBoundary>
           ) : (
-            <FavouritesView favourites={favourites || []} />
+            <ErrorBoundary>
+              <FavouritesView favourites={favourites || []} />
+            </ErrorBoundary>
           )}
 
           {/* Error and loading states */}
