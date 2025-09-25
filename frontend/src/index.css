@@ -1,3 +1,31 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* WCAG 2.1 AA Text Spacing Requirements */
+@layer base {
+  body {
+    line-height: 1.6; /* At least 1.5 times font size */
+    letter-spacing: 0.02em; /* At least 0.12 times font size */
+  }
+
+  p, div, span {
+    line-height: 1.6;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    line-height: 1.4;
+    margin-bottom: 0.5em; /* At least 2 times font size for paragraph spacing */
+  }
+
+  button {
+    letter-spacing: 0.025em;
+    line-height: 1.5;
+  }
+
+  /* Focus management for accessibility */
+  *:focus-visible {
+    outline: 2px solid #4F46E5;
+    outline-offset: 2px;
+  }
+}

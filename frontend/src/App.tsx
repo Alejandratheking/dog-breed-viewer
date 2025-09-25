@@ -166,7 +166,7 @@ function App() {
         </section>
       </main>
 
-      <footer className="p-6 text-center text-xs text-gray-500">© {new Date().getFullYear()} Dog Breed Viewer – UI Mock</footer>
+      <footer className="p-6 text-center text-sm text-gray-500">© {new Date().getFullYear()} Dog Breed Viewer – UI Mock</footer>
     </div>
   );
 }

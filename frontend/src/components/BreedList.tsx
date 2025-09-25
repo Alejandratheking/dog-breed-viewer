@@ -19,7 +19,7 @@ function BreedPill({ name, active, onClick }: { name: string; active: boolean; o
       <div className="flex items-center gap-2">
         <span className="text-base font-medium capitalize">{breed}</span>
         {sub && (
-          <span className="text-xs uppercase tracking-wide text-gray-500 bg-gray-100 px-2 py-0.5 rounded-full">
+          <span className="text-sm uppercase tracking-wide text-gray-500 bg-gray-100 px-2 py-0.5 rounded-full">
             {sub}
           </span>
         )}
