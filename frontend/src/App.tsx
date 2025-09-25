@@ -7,6 +7,7 @@ import { ImageGrid } from './components/ImageGrid';
 import { FavouritesView } from './components/FavouritesView';
 import { LoadingSpinner } from './components/LoadingSpinner';
 import { ErrorBanner } from './components/ErrorBanner';
+import { classNames } from './utils/classNames';
 
 function Header() {
   return (
@@ -16,13 +17,13 @@ function Header() {
           <Dog className="size-6 text-indigo-600" />
         </div>
         <div>
-          <h1 className="text-lg md:text-2xl font-semibold">Dog Breed Viewer</h1>
-          <p className="text-xs md:text-sm text-gray-500">Browse breeds, view images, and save favourites</p>
+          <h1 className="text-xl md:text-3xl font-semibold">Dog Breed Viewer</h1>
+          <p className="text-sm md:text-base text-gray-500">Browse breeds, view images, and save favourites</p>
         </div>
       </div>
       <div className="hidden md:flex items-center gap-2 text-gray-500">
         <ImageIcon className="size-4" />
-        <span className="text-sm">Powered by Dog CEO API</span>
+        <span className="text-base">Powered by Dog CEO API</span>
       </div>
     </header>
   );
@@ -56,7 +57,7 @@ function App() {
       <Header />
 
       <main className="grid grid-cols-1 lg:grid-cols-12 gap-6 p-4 md:p-6 max-w-7xl mx-auto">
-        <aside className="lg:col-span-4 xl:col-span-3 flex flex-col gap-4">
+        <aside className="lg:col-span-3 flex flex-col gap-4">
           <div className="p-4 rounded-2xl border bg-white shadow-sm">
             <label className="flex items-center gap-2 p-2 rounded-xl border bg-gray-50 focus-within:ring-2 focus-within:ring-indigo-500">
               <Search className="size-4 text-gray-500" />
@@ -91,20 +92,20 @@ function App() {
           </div>
         </aside>
 
-        <section className="lg:col-span-8 xl:col-span-9 space-y-4">
+        <section className="lg:col-span-9 space-y-4">
           <div className="flex items-center justify-between">
             <div>
               {selectedBreed ? (
                 <>
-                  <h2 className="text-xl font-semibold capitalize">
+                  <h2 className="text-2xl font-semibold capitalize">
                     {selectedBreed.replace('/', ' • ')}
                   </h2>
-                  <p className="text-sm text-gray-500">Showing 3 random images</p>
+                  <p className="text-base text-gray-500">Showing 3 random images</p>
                 </>
               ) : (
                 <>
-                  <h2 className="text-xl font-semibold">Select a breed</h2>
-                  <p className="text-sm text-gray-500">Choose a breed to view images</p>
+                  <h2 className="text-2xl font-semibold">Select a breed</h2>
+                  <p className="text-base text-gray-500">Choose a breed to view images</p>
                 </>
               )}
             </div>
@@ -112,33 +113,26 @@ function App() {
             <div className="inline-flex items-center gap-1 rounded-xl border p-1 bg-white">
               <button
                 onClick={() => setCurrentTab('browse')}
-                className={`px-3 py-1.5 text-sm rounded-lg transition-colors ${
-                  currentTab === 'browse'
-                    ? 'bg-indigo-50 text-indigo-700'
-                    : 'text-gray-600 hover:bg-gray-50'
-                }`}
+                className={classNames(
+                  "px-4 py-2 text-base rounded-lg",
+                  currentTab === 'browse' ? "bg-indigo-50 text-indigo-700" : "text-gray-600 hover:bg-gray-50"
+                )}
                 aria-pressed={currentTab === 'browse'}
               >
                 Browse
               </button>
               <button
                 onClick={() => setCurrentTab('favourites')}
-                className={`px-3 py-1.5 text-sm rounded-lg transition-colors flex items-center gap-1 ${
-                  currentTab === 'favourites'
-                    ? 'bg-indigo-50 text-indigo-700'
-                    : 'text-gray-600 hover:bg-gray-50'
-                }`}
+                className={classNames(
+                  "px-4 py-2 text-base rounded-lg",
+                  currentTab === 'favourites' ? "bg-indigo-50 text-indigo-700" : "text-gray-600 hover:bg-gray-50"
+                )}
                 aria-pressed={currentTab === 'favourites'}
               >
-                <Heart className="size-4" />
-                Favourites
+                <span className="inline-flex items-center gap-1"><Heart className="size-4"/>Favourites</span>
               </button>
             </div>
           </div>
-
-          {imagesError && (
-            <ErrorBanner error="Could not load images. Showing the last good set." />
-          )}
 
           {currentTab === 'browse' ? (
             <div>
@@ -153,12 +147,26 @@ function App() {
           ) : (
             <FavouritesView favourites={favourites || []} />
           )}
+
+          {/* Error and loading states */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {imagesError && (
+              <div className="rounded-2xl border bg-red-50 border-red-200 text-red-800 p-4">
+                <p className="text-base font-medium">Unable to load images</p>
+                <p className="text-base">Please check your connection and try again.</p>
+              </div>
+            )}
+            {breedsLoading && (
+              <div className="rounded-2xl border bg-white p-4 flex items-center gap-2">
+                <LoadingSpinner />
+                <span className="text-base text-gray-700">Loading breeds...</span>
+              </div>
+            )}
+          </div>
         </section>
       </main>
 
-      <footer className="p-6 text-center text-xs text-gray-500">
-        © {new Date().getFullYear()} Dog Breed Viewer – UI Mock
-      </footer>
+      <footer className="p-6 text-center text-xs text-gray-500">© {new Date().getFullYear()} Dog Breed Viewer – UI Mock</footer>
     </div>
   );
 }

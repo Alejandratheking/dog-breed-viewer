@@ -1,4 +1,5 @@
 import { useAppStore } from '../store';
+import { classNames } from '../utils/classNames';
 
 interface BreedListProps {
   breeds: string[];
@@ -9,15 +10,16 @@ function BreedPill({ name, active, onClick }: { name: string; active: boolean; o
   return (
     <button
       onClick={onClick}
-      className={`group w-full text-left px-3 py-2 rounded-xl border transition hover:border-indigo-300 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 ${
-        active ? 'bg-indigo-50 border-indigo-300' : 'bg-white border-gray-200'
-      }`}
+      className={classNames(
+        "group w-full text-left px-3 py-2 rounded-xl border transition hover:border-indigo-300 focus:outline-none focus:ring-2 focus:ring-indigo-500/50",
+        active ? "bg-indigo-50 border-indigo-300" : "bg-white border-gray-200"
+      )}
       aria-pressed={active}
     >
       <div className="flex items-center gap-2">
-        <span className="text-sm font-medium capitalize">{breed}</span>
+        <span className="text-base font-medium capitalize">{breed}</span>
         {sub && (
-          <span className="text-[10px] uppercase tracking-wide text-gray-500 bg-gray-100 px-2 py-0.5 rounded-full">
+          <span className="text-xs uppercase tracking-wide text-gray-500 bg-gray-100 px-2 py-0.5 rounded-full">
             {sub}
           </span>
         )}
@@ -27,12 +29,12 @@ function BreedPill({ name, active, onClick }: { name: string; active: boolean; o
 }
 
 export function BreedList({ breeds }: BreedListProps) {
-  const { selectedBreed, setSelectedBreed } = useAppStore();
+  const { selectedBreed, setSelectedBreed, searchQuery } = useAppStore();
 
   if (breeds.length === 0) {
     return (
-      <div className="text-sm text-gray-500 p-3">
-        No breeds match your search.
+      <div className="text-base text-gray-500 p-3">
+        {searchQuery ? `No breeds match "${searchQuery}".` : 'No breeds match your search.'}
       </div>
     );
   }

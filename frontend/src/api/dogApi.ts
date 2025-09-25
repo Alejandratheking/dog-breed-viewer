@@ -1,6 +1,6 @@
 import type { BreedMap, DogImage } from '../types';
 
-const DOG_API_BASE = 'https://dog.ceo/dog-api';
+const DOG_API_BASE = 'https://dog.ceo/api';
 
 export class DogApiError extends Error {
   status?: number;
@@ -49,7 +49,13 @@ export async function fetchAllBreeds(): Promise<BreedMap> {
 
 export async function fetchBreedImages(breed: string, count = 3): Promise<DogImage[]> {
   try {
-    const breedPath = breed.replace('/', '-');
+    // For breeds with sub-breeds, the API expects: /breed/{main-breed}/{sub-breed}/images/random/{count}
+    // For simple breeds: /breed/{breed}/images/random/{count}
+    const breedParts = breed.split('/');
+    const breedPath = breedParts.length === 2
+      ? `${breedParts[0]}/${breedParts[1]}`
+      : breed;
+
     const response = await fetchWithTimeout(
       `${DOG_API_BASE}/breed/${breedPath}/images/random/${count}`
     );

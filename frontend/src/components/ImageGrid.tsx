@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Star } from 'lucide-react';
 import type { DogImage, Favourite } from '../types';
 import { useAddFavourite, useRemoveFavourite } from '../hooks/useApi';
+import { classNames } from '../utils/classNames';
 
 interface ImageCardProps {
   image: DogImage;
@@ -27,21 +28,20 @@ function ImageCard({ image, isFavourited }: ImageCardProps) {
         src={image.url}
         alt={`${image.breed} dog`}
         loading="lazy"
-        className={`w-full h-52 object-cover transition duration-500 ${
-          loading ? 'blur-sm scale-[1.02]' : 'blur-0'
-        }`}
+        className={classNames(
+          "w-full h-52 object-cover transition duration-500",
+          loading ? "blur-sm scale-[1.02]" : "blur-0"
+        )}
         onLoad={() => setLoading(false)}
       />
       <div className="absolute inset-x-0 bottom-0 hidden group-hover:flex justify-between items-center p-2 bg-gradient-to-t from-black/60 to-transparent">
         <button
           onClick={handleFavouriteClick}
           disabled={addFavourite.isPending || removeFavourite.isPending}
-          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/90 backdrop-blur text-gray-800 text-xs font-medium hover:bg-white disabled:opacity-50"
+          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/90 backdrop-blur text-gray-800 text-sm font-medium hover:bg-white disabled:opacity-50"
         >
           <Star
-            className={`size-4 ${
-              isFavourited ? 'fill-yellow-400 text-yellow-500' : 'text-gray-600'
-            }`}
+            className={classNames("size-4", isFavourited ? "fill-yellow-400 text-yellow-500" : "text-gray-600")}
           />
           {isFavourited ? 'Favourited' : 'Favourite'}
         </button>
@@ -49,7 +49,7 @@ function ImageCard({ image, isFavourited }: ImageCardProps) {
           href={image.url}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-xs text-white/90 hover:text-white underline"
+          className="text-sm text-white/90 hover:text-white underline"
         >
           Open
         </a>
@@ -69,15 +69,15 @@ export function ImageGrid({ images, favourites }: ImageGridProps) {
   if (images.length === 0) {
     return (
       <div className="text-center py-12 text-gray-500">
-        <p className="text-lg font-medium">No images to display</p>
-        <p className="text-sm">Select a breed to view random images</p>
+        <p className="text-xl font-medium">No images to display</p>
+        <p className="text-base">Select a breed to view random images</p>
       </div>
     );
   }
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-      {images.map((image, index) => (
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      {images.slice(0, 3).map((image, index) => (
         <ImageCard
           key={`${image.url}-${index}`}
           image={image}

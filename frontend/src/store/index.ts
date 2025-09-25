@@ -11,7 +11,7 @@ interface AppState {
 
 export const useAppStore = create<AppState>((set) => ({
   searchQuery: '',
-  selectedBreed: null,
+  selectedBreed: 'retriever/golden',
   currentTab: 'browse',
   setSearchQuery: (query) => set({ searchQuery: query }),
   setSelectedBreed: (breed) => set({ selectedBreed: breed }),

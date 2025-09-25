@@ -2,6 +2,7 @@ import { Star } from 'lucide-react';
 import type { Favourite } from '../types';
 import { useRemoveFavourite } from '../hooks/useApi';
 import { useState } from 'react';
+import { classNames } from '../utils/classNames';
 
 interface FavouriteCardProps {
   favourite: Favourite;
@@ -21,9 +22,10 @@ function FavouriteCard({ favourite }: FavouriteCardProps) {
         src={favourite.image_url}
         alt={`${favourite.breed} dog`}
         loading="lazy"
-        className={`w-full h-52 object-cover transition duration-500 ${
-          loading ? 'blur-sm scale-[1.02]' : 'blur-0'
-        }`}
+        className={classNames(
+          "w-full h-52 object-cover transition duration-500",
+          loading ? "blur-sm scale-[1.02]" : "blur-0"
+        )}
         onLoad={() => setLoading(false)}
       />
       <div className="absolute inset-x-0 bottom-0 hidden group-hover:flex justify-between items-center p-2 bg-gradient-to-t from-black/60 to-transparent">
@@ -58,14 +60,11 @@ interface FavouritesViewProps {
 export function FavouritesView({ favourites }: FavouritesViewProps) {
   if (favourites.length === 0) {
     return (
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        {Array.from({ length: 6 }).map((_, i) => (
-          <div
-            key={i}
-            className="relative rounded-2xl border border-dashed p-6 flex flex-col items-center justify-center text-gray-500 bg-white h-52"
-          >
-            <Star className="mb-2 size-8" />
-            <p className="text-sm">Your favourites will appear here</p>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {[0,1,2,3,4,5].map((i) => (
+          <div key={i} className="relative rounded-2xl border border-dashed p-6 flex flex-col items-center justify-center text-gray-500 bg-white">
+            <Star className="mb-2" />
+            <p className="text-base">Your favourites will appear here</p>
           </div>
         ))}
       </div>
@@ -73,7 +72,7 @@ export function FavouritesView({ favourites }: FavouritesViewProps) {
   }
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
       {favourites.map((favourite) => (
         <FavouriteCard key={favourite.id} favourite={favourite} />
       ))}
