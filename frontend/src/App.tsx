@@ -39,8 +39,26 @@ function App() {
 
   const filteredBreeds = useMemo(() => {
     if (!breeds) return [];
+
+    // Flatten breeds to include sub-breeds as "breed/sub-breed"
+    const allBreeds: string[] = [];
+    Object.entries(breeds).forEach(([breed, subBreeds]) => {
+      // Always add the main breed
+      allBreeds.push(breed);
+
+      // Also add each sub-breed as "breed/sub-breed"
+      if (subBreeds.length > 0) {
+        subBreeds.forEach(subBreed => {
+          allBreeds.push(`${breed}/${subBreed}`);
+        });
+      }
+    });
+
+    // Filter based on search query
     const query = searchQuery.toLowerCase().trim();
-    return Object.keys(breeds).filter(breed => breed.includes(query));
+    const filtered = allBreeds.filter(breed => breed.includes(query));
+
+    return filtered;
   }, [breeds, searchQuery]);
 
   if (breedsError) {
